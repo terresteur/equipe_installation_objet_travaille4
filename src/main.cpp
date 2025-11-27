@@ -35,7 +35,13 @@ void setup() {
 
   //Animation de depart pour differencier atom 1 et 2
   delay(600);
-  atomPixel = CRGB(0,255,255);
+  atomPixel = CRGB(255,0,0);
+  FastLED.show();
+  delay(600);
+  atomPixel = CRGB(0,255,0);
+  FastLED.show();
+  delay(600);
+  atomPixel = CRGB(0,0,255);
   FastLED.show();
 
 }
