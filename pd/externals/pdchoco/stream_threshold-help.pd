@@ -1,0 +1,13 @@
+#N canvas 212 172 928 555 12;
+#X obj 90 274 pdchoco/stream 0 50;
+#X obj 91 103 vsl 19 162 0 127 0 0 empty empty empty 0 -9 0 12 #fcfcfc #000000 #000000 0 1;
+#X obj 90 312 pdchoco/stream_threshold 32 100;
+#X obj 91 349 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
+#X text 114 128 <- 100;
+#X text 113 214 <- 32;
+#X text 321 310 Argument 1: low limit;
+#X text 321 328 Argument 2: high limit;
+#X text 82 26 Description: Outputs 1 when the input goes over the high limit and 0 when the input goes under the low limit. In betweem \, outputs the previously outputed value.;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;

@@ -1,0 +1,15 @@
+#N canvas 504 304 805 544 12;
+#X obj 77 223 pdchoco/ascii_parse 10;
+#X msg 160 179 10;
+#X msg 77 87 104 101 108 108 111 32 49 32 50 32 51 32 53 10;
+#X text 248 220 Argument 1 : Set the end of message byte (10 for line feed in the example).;
+#X msg 120 123 65;
+#X msg 146 151 66;
+#X text 70 11 Description: Converts incoming ASCII bytes to Pd messages. It accumulates received bytes (up to 1024) and outputs the result once an end of message byte is received. Input can either be individual bytes or lists of bytes.;
+#X text 247 153 Warning: Commas and semicolons are weird in Pd \, they will separate messages.;
+#X obj 76 275 print ascii_parse;
+#X connect 0 0 8 0;
+#X connect 1 0 0 0;
+#X connect 2 0 0 0;
+#X connect 4 0 0 0;
+#X connect 5 0 0 0;

@@ -1,0 +1,11 @@
+#N canvas 813 534 450 300 12;
+#X obj 58 6 inlet;
+#X obj 289 156 r \$0callback;
+#X obj 290 197 outlet;
+#X obj 58 99 list prepend \$0callback;
+#X msg 56 39 bang;
+#X obj 61 215 s \$1_get;
+#X connect 0 0 4 0;
+#X connect 1 0 2 0;
+#X connect 3 0 5 0;
+#X connect 4 0 3 0;

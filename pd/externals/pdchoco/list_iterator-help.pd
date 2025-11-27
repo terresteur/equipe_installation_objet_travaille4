@@ -1,0 +1,7 @@
+#N canvas 237 275 450 300 12;
+#X obj 141 202 print iterated;
+#X msg 137 96 1 2 3 4 5;
+#X obj 137 152 pdchoco/list_iterator;
+#X text 25 24 Description: Iterates the items of a list.;
+#X connect 1 0 2 0;
+#X connect 2 0 0 0;

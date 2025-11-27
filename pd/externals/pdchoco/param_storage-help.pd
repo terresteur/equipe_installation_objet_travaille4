@@ -1,0 +1,17 @@
+#N canvas 430 226 748 616 12;
+#X text 130 115 Read ALL params in a file;
+#X text 51 69 Write *ALL* params to a file;
+#X text 165 170 Write params that start with /group1 to a file;
+#X msg 56 88 write params.txt;
+#X msg 132 138 read params.txt;
+#X text 168 230 Read ALL params in a file (even if only a subset was stored);
+#X obj 539 39 param;
+#X obj 61 387 param-example /group5;
+#X obj 330 386 param-example /group6;
+#X msg 165 189 write group1.txt /group5;
+#X msg 170 253 read group5.txt;
+#X obj 57 288 pdchoco/param_storage;
+#X connect 3 0 11 0;
+#X connect 4 0 11 0;
+#X connect 9 0 11 0;
+#X connect 10 0 11 0;

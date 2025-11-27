@@ -1,0 +1,8 @@
+#N canvas 237 275 639 300 12;
+#X obj 49 176 print iterated;
+#X msg 45 70 1 2 3 4 5;
+#X text 300 129 Argument : ms between each output;
+#X obj 45 126 pdchoco/list_iterator_delayed 1000;
+#X text 55 16 Description: Iterates the items of a list with a delay between each.;
+#X connect 1 0 3 0;
+#X connect 3 0 0 0;

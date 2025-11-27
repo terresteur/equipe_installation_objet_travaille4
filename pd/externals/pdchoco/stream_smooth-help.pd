@@ -1,0 +1,15 @@
+#N canvas 208 246 1033 532 12;
+#X obj 82 201 pdchoco/stream 0 50;
+#X obj 83 284 pdchoco/stream_smooth 0.2 0.01;
+#X text 222 201 input must be a continuous stream;
+#X obj 195 374 pdchoco/scope 0 127;
+#X obj 83 31 vsl 19 162 0 127 0 0 empty empty empty 0 -9 0 12 #fcfcfc #000000 #000000 0 1;
+#X obj 83 335 vsl 19 162 0 127 0 0 empty empty empty 0 -9 0 12 #fcfcfc #000000 #000000 0 1;
+#X obj 176 36 pdchoco/stream_smooth 0.2 0.01;
+#X text 307 277 Argument 1: downward proportion (0 < proportion <= 1);
+#X text 307 293 Argument 2 : upward proportion (0 < proportion <= 1);
+#X text 174 59 Description: Smooth the changes in a stream of floats.;
+#X connect 0 0 1 0;
+#X connect 1 0 5 0;
+#X connect 1 0 3 0;
+#X connect 4 0 0 0;

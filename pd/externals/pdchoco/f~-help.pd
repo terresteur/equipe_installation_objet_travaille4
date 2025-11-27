@@ -1,0 +1,7 @@
+#N canvas 295 333 523 300 12;
+#X floatatom 110 98 5 0 0 0 - - - 0;
+#X obj 111 153 pdchoco/f~ 1 15;
+#X text 34 42 Description: Converts a float message to a signal \, like sig~ \, but with a ramp (to avoid clicks);
+#X text 229 146 Argument 1: Initial value;
+#X text 228 162 Argument 2: Ramp time in ms to value;
+#X connect 0 0 1 0;

@@ -1,0 +1,12 @@
+#N canvas 180 217 674 300 12;
+#X floatatom 106 99 5 0 0 0 - - - 0;
+#X floatatom 105 163 5 0 0 0 - - - 0;
+#X obj 105 131 pdchoco/map 0 127 0 1;
+#X text 26 37 Description : Remap and limit input range to output range.;
+#X text 302 112 Argument 1 : Input minimum;
+#X text 302 131 Argument 2 : Input maximum;
+#X text 301 150 Argument 3 : Output minimum;
+#X text 300 170 Argument 4 : Output maximum;
+#X text 300 93 All arguments are required.;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;

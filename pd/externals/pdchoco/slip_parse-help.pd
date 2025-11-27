@@ -1,0 +1,10 @@
+#N canvas 486 189 740 466 12;
+#X msg 68 78 192 47 108 101 100 0 0 0 0 44 105 0 0 0 0 0 1 192;
+#X obj 194 158 bng 15 250 50 0 empty empty error 17 7 0 10 #fcfcfc #000000 #000000;
+#X obj 67 122 pdchoco/slip_parse;
+#X text 63 42 Description: Parses a SLIP message into a list of bytes.;
+#X text 424 80 SLIP pack from serial (comport) for example;
+#X obj 66 233 print bytes;
+#X connect 0 0 2 0;
+#X connect 2 0 5 0;
+#X connect 2 1 1 0;

@@ -1,0 +1,12 @@
+#N canvas 179 109 568 403 12;
+#X floatatom 90 106 5 0 0 0 - - - 0;
+#X obj 96 246 skipped_integers;
+#X obj 96 297 print no_skips;
+#X floatatom 96 205 5 0 0 0 - - - 0;
+#X text 131 105 scroll quickly \, some integers will be skipped;
+#X text 137 204 scroll quickly \, no integers skipped;
+#X text 84 23 Description: Outputs input integers and the integers between two successive inputs if some where skipped.;
+#X obj 90 134 print with_skips;
+#X connect 0 0 7 0;
+#X connect 1 0 2 0;
+#X connect 3 0 1 0;

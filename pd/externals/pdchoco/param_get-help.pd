@@ -1,0 +1,13 @@
+#N canvas 221 240 618 328 12;
+#X obj 48 185 print;
+#X obj 47 94 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
+#X obj 355 187 print;
+#X obj 354 96 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
+#X text 30 7 Get the value of a param.;
+#X obj 39 35 param-example /group4;
+#X obj 353 146 pdchoco/param_get /group4/beta;
+#X obj 46 144 pdchoco/param_get /group4/alpha;
+#X connect 1 0 7 0;
+#X connect 3 0 6 0;
+#X connect 6 0 2 0;
+#X connect 7 0 0 0;

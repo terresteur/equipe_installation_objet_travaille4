@@ -1,0 +1,14 @@
+#N canvas 107 101 595 505 12;
+#X obj 108 124 bng 15 250 50 0 empty empty data 17 7 0 10 #fcfcfc #000000 #000000;
+#X obj 84 95 netreceive -u -b 7000;
+#X obj 202 270 bng 15 250 50 0 empty empty error 17 7 0 10 #fcfcfc #000000 #000000;
+#X obj 85 356 print;
+#X text 128 356 Send to Serial (comport);
+#X text 239 94 Receive unpacked bytes from network;
+#X text 218 224 Pack bytes into SLIP;
+#X obj 86 223 pdchoco/slip_pack;
+#X text 83 17 Description: Packs a list of bytes into a SLIP message.;
+#X connect 1 0 0 0;
+#X connect 1 0 7 0;
+#X connect 7 0 3 0;
+#X connect 7 1 2 0;

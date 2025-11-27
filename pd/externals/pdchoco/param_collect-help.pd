@@ -1,0 +1,8 @@
+#N canvas 462 207 524 416 12;
+#X obj 105 76 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
+#X text 130 75 Output all params and their values;
+#X obj 105 228 print collected;
+#X obj 111 311 param-example /group3;
+#X obj 104 157 pdchoco/param_collect;
+#X connect 0 0 4 0;
+#X connect 4 0 2 0;

@@ -1,0 +1,14 @@
+#N canvas 121 159 582 300 12;
+#X obj 92 145 % 5;
+#X floatatom 92 94 5 0 0 0 - - - 0;
+#X floatatom 92 200 5 0 0 0 - - - 0;
+#X text 124 145 programmer's modulo;
+#X floatatom 307 200 5 0 0 0 - - - 0;
+#X text 87 74 Try negative numbers :;
+#X text 435 145 math modulo;
+#X obj 307 145 pdchoco/modulo 5;
+#X text 86 22 Description: Math modulo instead of programmer's modulo (%).;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 1 0 7 0;
+#X connect 7 0 4 0;

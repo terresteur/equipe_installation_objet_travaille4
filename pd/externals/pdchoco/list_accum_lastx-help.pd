@@ -1,0 +1,15 @@
+#N canvas 500 155 680 614 12;
+#X obj 160 189 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
+#X floatatom 102 153 5 0 0 0 - - - 0;
+#X text 57 264 contents;
+#X text 308 275 bang on empty;
+#X obj 123 357 print accumulated;
+#X obj 303 296 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
+#X text 183 189 output and empty contents;
+#X text 143 154 add contents and keep the last X;
+#X obj 121 245 pdchoco/list_accum_lastx 5;
+#X text 60 51 Description: Accumulates in a list X last items received.;
+#X connect 0 0 8 0;
+#X connect 1 0 8 0;
+#X connect 8 0 4 0;
+#X connect 8 1 5 0;

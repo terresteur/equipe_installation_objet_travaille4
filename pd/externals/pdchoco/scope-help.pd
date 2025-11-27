@@ -1,0 +1,13 @@
+#N canvas 179 217 946 367 12;
+#X floatatom 36 80 5 0 0 0 - - - 0;
+#X obj 38 152 pdchoco/scope 0 1024;
+#X obj 317 153 pdchoco/scope 0 100;
+#X floatatom 317 73 5 0 100 0 - - - 0;
+#X obj 316 106 pdchoco/stream 0 50;
+#X text 75 102 Argumennt 1: minimum;
+#X text 75 120 Argumennt 2: maximum;
+#X text 522 171 The black bar show where the writing head is.;
+#X text 24 24 Description: Displays input values in a graphical "scope".;
+#X connect 0 0 1 0;
+#X connect 3 0 4 0;
+#X connect 4 0 2 0;
