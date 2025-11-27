@@ -1,4 +1,4 @@
-#N canvas 1748 638 995 661 12;
+#N canvas 1070 970 995 661 12;
 #X obj 154 196 comport;
 #X msg 214 136 devices;
 #X obj 153 345 pdchoco/slip_parse;
@@ -31,7 +31,6 @@
 #X msg 273 559 disconnect \, connect 127.0.0.1 7001;
 #X obj 154 42 netreceive -u -b 7000;
 #X msg 342 137 close \, baud 115200 \, open 5;
-#X msg 350 103 baud 115200 \, open 4;
 #X connect 0 0 2 0;
 #X connect 0 0 12 0;
 #X connect 0 0 13 0;
@@ -55,4 +54,3 @@
 #X connect 30 0 16 0;
 #X connect 30 0 17 0;
 #X connect 31 0 0 0;
-#X connect 32 0 0 0;
