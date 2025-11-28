@@ -9,15 +9,12 @@ MicroOscSlip<128> monOsc(& Serial);
 
 #define CANAL_KEY_UNIT_ANGLE_Y 0 //Atom 1
 #define CANAL_KEY_UNIT_ANGLE_X 1 //Atom 1
-#define CANAL_KEY_UNIT_ANGLE_VOLUME 2 //Atom 1
-#define CANAL_KEY_UNIT_BOUTON 3 //Atom 1
 #define MA_BROCHE_BOUTON 27 //Atom 1 et 2 pour diffencier avec les couleurs lequel atom et lequel.
 
 unsigned long monChronoDepart;
 
 M5_PbHub myPbHub;
 CRGB atomPixel;
-M5_Encoder myEncoder;
 VL53L0X  myTOF;
 
 
@@ -26,12 +23,10 @@ void setup() {
   Serial.begin(115200); 
   myPbHub.begin(); 
   Wire.begin(); 
-  myEncoder.begin();
   myTOF.init();
 
   pinMode( MA_BROCHE_BOUTON , INPUT ); 
   FastLED.addLeds<WS2812, MA_BROCHE_BOUTON , GRB>(&atomPixel, 1); 
-  myPbHub.setPixelCount( CANAL_KEY_UNIT_BOUTON , 1);
 
   //Animation de depart pour differencier atom 1 et 2
   delay(600);
@@ -41,9 +36,8 @@ void setup() {
   atomPixel = CRGB(0,255,0);
   FastLED.show();
   delay(600);
-  atomPixel = CRGB(0,0,255);
+  atomPixel = CRGB(255,0,0);
   FastLED.show();
-
 }
 
 void loop() {
@@ -55,38 +49,22 @@ void loop() {
     /*---Envois OSC Pbhub----*/
     int lectureAngleY = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_Y );
     int lectureAngleX = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_X );
-    int lectureAngleVolume = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_VOLUME );
-    int maLectureKey = myPbHub.digitalRead( CANAL_KEY_UNIT_BOUTON );
+
 
       //Amira 1 et 2
-    monOsc.sendInt("/angle_y", lectureAngleY); 
-    monOsc.sendInt("/angle_x", lectureAngleY); 
-      //Megane 1
-    monOsc.sendInt("/angle_volume", lectureAngleY);
-      //Radhouane 1
-    monOsc.sendInt("/bouton", maLectureKey); 
+    monOsc.sendInt("/angley", lectureAngleY); 
+    monOsc.sendInt("/anglex", lectureAngleY); 
 
 
-    /*---Envois OSC Encodeur----*/
-    int changementEncodeur = myEncoder.getEncoderChange();
-    int etatBouton = myEncoder.getButtonState();
 
-      //Megane 2
-    monOsc.sendInt("/angle_encod2_visuel", changementEncodeur);
-    monOsc.sendInt("/bouton_encod2_visuel", etatBouton);
-      //Ting Yung 1
-    monOsc.sendInt("/angle_encod1_sons", changementEncodeur); 
-    monOsc.sendInt("/bouton_encod1_sons", etatBouton);
-    myEncoder.update();
 
 
     /*---Envois OSC TOF---*/
     int mesure = myTOF.readRangeSingleMillimeters();
 
       //Radhouane 2
-    monOsc.sendInt("/tof_visuel", mesure);
-      //Ting Yung 2
-    monOsc.sendInt("/tof_sons", mesure);
+    monOsc.sendInt("/tofvisuel", mesure);
+
   }
 
 }
