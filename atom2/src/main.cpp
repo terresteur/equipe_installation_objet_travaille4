@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <M5_PbHub.h>
 #include <MicroOscSlip.h>
 #include <FastLED.h>
 #include <M5_Encoder.h>
@@ -7,24 +6,21 @@
 
 MicroOscSlip<128> monOsc(& Serial);
 
-#define CANAL_KEY_UNIT_ANGLE_Y 0 //Atom 1
-#define CANAL_KEY_UNIT_ANGLE_X 1 //Atom 1
-#define MA_BROCHE_BOUTON 27 //Atom 1 et 2 pour diffencier avec les couleurs lequel atom et lequel.
+#define MA_BROCHE_BOUTON 27 
 
 unsigned long monChronoDepart;
 
-M5_PbHub myPbHub;
 CRGB atomPixel;
 VL53L0X  myTOF;
+M5_Encoder myEncoder;
 
 
 void setup() {
 
   Serial.begin(115200); 
-  myPbHub.begin(); 
   Wire.begin(); 
   myTOF.init();
-
+  myEncoder.begin();
   pinMode( MA_BROCHE_BOUTON , INPUT ); 
   FastLED.addLeds<WS2812, MA_BROCHE_BOUTON , GRB>(&atomPixel, 1); 
 
@@ -36,7 +32,7 @@ void setup() {
   atomPixel = CRGB(0,255,0);
   FastLED.show();
   delay(600);
-  atomPixel = CRGB(255,0,0);
+  atomPixel = CRGB(0,0,255);
   FastLED.show();
 }
 
@@ -45,25 +41,23 @@ void loop() {
   if ( millis() - monChronoDepart >= 200 ) { 
     monChronoDepart = millis(); 
 
+    //---Envois OSC Encodeur----
+    /*int changementEncodeur = myEncoder.getEncoderChange();
+    int etatBouton = myEncoder.getButtonState();
 
-    /*---Envois OSC Pbhub----*/
-    int lectureAngleY = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_Y );
-    int lectureAngleX = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_X );
-
-
-      //Amira 1 et 2
-    monOsc.sendInt("/angley", lectureAngleY); 
-    monOsc.sendInt("/anglex", lectureAngleY); 
-
+      //Ting Yung 1
+    monOsc.sendInt("/angle_encod1_sons", changementEncodeur); 
+    monOsc.sendInt("/bouton_encod1_sons", etatBouton);
+    myEncoder.update();*/
 
 
-
-
-    /*---Envois OSC TOF---*/
+    //---Envois OSC TOF---
     int mesure = myTOF.readRangeSingleMillimeters();
 
       //Radhouane 2
-    monOsc.sendInt("/tofvisuel", mesure);
+    monOsc.sendInt("/tof_visuel", mesure);
+      //Ting Yung 2
+    //monOsc.sendInt("/tof_sons", mesure);
 
   }
 
@@ -72,6 +66,9 @@ void loop() {
 
 /*
 --=== Bibliotheque outils ===--
+
+-----TOUTCH DESIGNER-------
+https://t-o-f.info/aide/#/touchdesigner/aspect/
 
 -----ENCODER COULEUR-------
 https://t-o-f.info/aide/#/m5stack/units/encoder/

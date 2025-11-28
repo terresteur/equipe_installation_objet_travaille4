@@ -3,19 +3,20 @@
 #include <MicroOscSlip.h>
 #include <FastLED.h>
 #include <M5_Encoder.h>
-#include <VL53L0X.h>
 
 MicroOscSlip<128> monOsc(& Serial);
 
-#define CANAL_KEY_UNIT_ANGLE_Y 0 //Atom 1
-#define CANAL_KEY_UNIT_ANGLE_X 1 //Atom 1
-#define MA_BROCHE_BOUTON 27 //Atom 1 et 2 pour diffencier avec les couleurs lequel atom et lequel.
+#define CANAL_KEY_UNIT_ANGLE_Y 0 //amira
+#define CANAL_KEY_UNIT_ANGLE_X 1 //amira
+#define CANAL_KEY_UNIT_ANGLE_VOLUME 2 //megane
+#define CANAL_KEY_UNIT_BOUTON 3 //radhouane
+#define MA_BROCHE_BOUTON 27 
 
 unsigned long monChronoDepart;
 
 M5_PbHub myPbHub;
 CRGB atomPixel;
-VL53L0X  myTOF;
+M5_Encoder myEncoder;
 
 
 void setup() {
@@ -23,14 +24,14 @@ void setup() {
   Serial.begin(115200); 
   myPbHub.begin(); 
   Wire.begin(); 
-  myTOF.init();
-
+  myEncoder.begin();
   pinMode( MA_BROCHE_BOUTON , INPUT ); 
   FastLED.addLeds<WS2812, MA_BROCHE_BOUTON , GRB>(&atomPixel, 1); 
+  myPbHub.setPixelCount( CANAL_KEY_UNIT_BOUTON , 1);
 
   //Animation de depart pour differencier atom 1 et 2
   delay(600);
-  atomPixel = CRGB(255,0,0);
+  atomPixel = CRGB(0,0,255);
   FastLED.show();
   delay(600);
   atomPixel = CRGB(0,255,0);
@@ -46,24 +47,30 @@ void loop() {
     monChronoDepart = millis(); 
 
 
-    /*---Envois OSC Pbhub----*/
+    //---Envois OSC Pbhub----
     int lectureAngleY = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_Y );
     int lectureAngleX = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_X );
+    /*int lectureAngleVolume = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_VOLUME );
+    int maLectureKey = myPbHub.digitalRead( CANAL_KEY_UNIT_BOUTON );*/
 
 
-      //Amira 1 et 2
-    monOsc.sendInt("/angley", lectureAngleY); 
-    monOsc.sendInt("/anglex", lectureAngleY); 
+    //Amira 1 et 2
+    monOsc.sendInt("/angle_y", lectureAngleY); 
+    monOsc.sendInt("/angle_x", lectureAngleX); 
+      //Megane 1
+   /*monOsc.sendInt("/angle_volume", lectureAngleY);
+      //Radhouane 1
+    monOsc.sendInt("/bouton", maLectureKey); */
 
+    //---Envois OSC Encodeur----
+    /*int changementEncodeur = myEncoder.getEncoderChange();
+    int etatBouton = myEncoder.getButtonState();
 
+    //Megane 2
+    monOsc.sendInt("/angle_encod2_visuel", changementEncodeur);
+    monOsc.sendInt("/bouton_encod2_visuel", etatBouton);
+    myEncoder.update();*/
 
-
-
-    /*---Envois OSC TOF---*/
-    int mesure = myTOF.readRangeSingleMillimeters();
-
-      //Radhouane 2
-    monOsc.sendInt("/tofvisuel", mesure);
 
   }
 
@@ -72,6 +79,10 @@ void loop() {
 
 /*
 --=== Bibliotheque outils ===--
+
+
+-----TOUTCH DESIGNER-------
+https://t-o-f.info/aide/#/touchdesigner/aspect/
 
 -----ENCODER COULEUR-------
 https://t-o-f.info/aide/#/m5stack/units/encoder/
@@ -101,7 +112,3 @@ https://t-o-f.info/aide/#/unity/osc/extosc/
    } 
 }
 */
-
-
-
-
