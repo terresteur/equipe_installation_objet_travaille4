@@ -3,6 +3,7 @@
 #include <MicroOscSlip.h>
 #include <FastLED.h>
 #include <M5_Encoder.h>
+#include <VL53L0X.h>
 
 MicroOscSlip<128> monOsc(& Serial);
 
@@ -17,12 +18,14 @@ unsigned long monChronoDepart;
 M5_PbHub myPbHub;
 CRGB atomPixel;
 M5_Encoder myEncoder;
+VL53L0X myTOF;
 
 
 void setup() {
 
   Serial.begin(115200); 
   myPbHub.begin(); 
+  myTOF.init();
   Wire.begin(); 
   myEncoder.begin();
   pinMode( MA_BROCHE_BOUTON , INPUT ); 
@@ -43,24 +46,24 @@ void setup() {
 
 void loop() {
 
-  if ( millis() - monChronoDepart >= 200 ) { 
+  if ( millis() - monChronoDepart >= 20 ) { 
     monChronoDepart = millis(); 
 
 
     //---Envois OSC Pbhub----
     int lectureAngleY = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_Y );
     int lectureAngleX = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_X );
-    /*int lectureAngleVolume = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_VOLUME );
-    int maLectureKey = myPbHub.digitalRead( CANAL_KEY_UNIT_BOUTON );*/
+    //int lectureAngleVolume = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_VOLUME );
+    int maLectureKey = myPbHub.digitalRead( CANAL_KEY_UNIT_BOUTON );
 
 
     //Amira 1 et 2
     monOsc.sendInt("/angle_y", lectureAngleY); 
     monOsc.sendInt("/angle_x", lectureAngleX); 
       //Megane 1
-   /*monOsc.sendInt("/angle_volume", lectureAngleY);
+   //monOsc.sendInt("/angle_volume", lectureAngleY);
       //Radhouane 1
-    monOsc.sendInt("/bouton", maLectureKey); */
+    monOsc.sendInt("/bouton", maLectureKey); 
 
     //---Envois OSC Encodeur----
     /*int changementEncodeur = myEncoder.getEncoderChange();
@@ -70,6 +73,12 @@ void loop() {
     monOsc.sendInt("/angle_encod2_visuel", changementEncodeur);
     monOsc.sendInt("/bouton_encod2_visuel", etatBouton);
     myEncoder.update();*/
+
+    //---Envois OSC TOF---
+    int mesure = myTOF.readRangeSingleMillimeters();
+
+    // Radhouane 2
+    monOsc.sendInt("/tof_visuel", mesure);
 
 
   }

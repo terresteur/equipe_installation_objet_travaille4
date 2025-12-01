@@ -55,8 +55,6 @@ void loop()
     //---Envois OSC TOF---
     int mesure = myTOF.readRangeSingleMillimeters();
 
-    // Radhouane 2
-    monOsc.sendInt("/tof_visuel", mesure);
     // Ting Yung 2
     monOsc.sendInt("/tof_sons", mesure);
   }
