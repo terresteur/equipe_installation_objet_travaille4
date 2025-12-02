@@ -25,8 +25,8 @@ void setup()
 
   Serial.begin(115200);
   myPbHub.begin();
-  myTOF.init();
   Wire.begin();
+  myTOF.init();
   myEncoder.begin();
   pinMode(MA_BROCHE_BOUTON, INPUT);
   FastLED.addLeds<WS2812, MA_BROCHE_BOUTON, GRB>(&atomPixel, 1);
@@ -54,6 +54,7 @@ void maReceptionMessageOsc(MicroOscMessage& oscMessage) {
 
   } 
 }
+
 void loop()
 {
 
@@ -63,28 +64,18 @@ void loop()
   int lectureAngleX = myPbHub.analogRead(CANAL_KEY_UNIT_ANGLE_X);
   int lectureAngleVolume = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_VOLUME );
   int maLectureKey = myPbHub.digitalRead(CANAL_KEY_UNIT_BOUTON);
-  int mesure = myTOF.readRangeSingleMillimeters();
+  
   monOsc.onOscMessageReceived(maReceptionMessageOsc);
   if (millis() - monChronoDepart >= 20)
   {
     monChronoDepart = millis();
-    // changement couleur key
-    if (maLectureKey == 0)
-    {
-      atomPixel = CRGB(50, 205, 50);
-      FastLED.show();
-    }
-    else if (maLectureKey == 1)
-    {
-      atomPixel = CRGB(0, 0, 0);
-      FastLED.show();
-    }
+
 
     // Amira 1 et 2
     monOsc.sendInt("/angle_y", lectureAngleY);
     monOsc.sendInt("/angle_x", lectureAngleX);
     // Megane 1
-    monOsc.sendInt("/angle_volume", lectureAngleY);
+    monOsc.sendInt("/angle_volume", lectureAngleVolume);
     // Radhouane 1
     monOsc.sendInt("/bouton", maLectureKey);
 
@@ -93,12 +84,12 @@ void loop()
     int etatBouton = myEncoder.getButtonState();
 
     //Megane 2
-    monOsc.sendInt("/angle_encod2_visuel", changementEncodeur);
+   monOsc.sendInt("/angle_encod2_visuel", changementEncodeur);
     monOsc.sendInt("/bouton_encod2_visuel", etatBouton);
-    myEncoder.update();
+   myEncoder.update();
 
     //---Envois OSC TOF---
-
+    int mesure = myTOF.readRangeSingleMillimeters();
     // Radhouane 2
     monOsc.sendInt("/tof_visuel", mesure);
   };
