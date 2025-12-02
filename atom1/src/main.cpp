@@ -44,6 +44,16 @@ void setup()
   FastLED.show();
 }
 
+void maReceptionMessageOsc(MicroOscMessage& oscMessage) {
+  // IF THE OSC ADDRESS IS "/pixel"
+  if (oscMessage.checkOscAddress("/pixel")) {
+    // PARSE THREE int ARGUMENTS
+    int green = oscMessage.nextAsInt();
+    myPbHub.setPixelColor( CANAL_KEY_UNIT_BOUTON , 0 , 0,green,0 );
+
+
+  } 
+}
 void loop()
 {
 
@@ -51,9 +61,10 @@ void loop()
   // lecture des unit connecté au arduino
   int lectureAngleY = myPbHub.analogRead(CANAL_KEY_UNIT_ANGLE_Y);
   int lectureAngleX = myPbHub.analogRead(CANAL_KEY_UNIT_ANGLE_X);
-  // int lectureAngleVolume = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_VOLUME );
+  int lectureAngleVolume = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_VOLUME );
   int maLectureKey = myPbHub.digitalRead(CANAL_KEY_UNIT_BOUTON);
   int mesure = myTOF.readRangeSingleMillimeters();
+  monOsc.onOscMessageReceived(maReceptionMessageOsc);
   if (millis() - monChronoDepart >= 20)
   {
     monChronoDepart = millis();
@@ -73,24 +84,24 @@ void loop()
     monOsc.sendInt("/angle_y", lectureAngleY);
     monOsc.sendInt("/angle_x", lectureAngleX);
     // Megane 1
-    // monOsc.sendInt("/angle_volume", lectureAngleY);
+    monOsc.sendInt("/angle_volume", lectureAngleY);
     // Radhouane 1
     monOsc.sendInt("/bouton", maLectureKey);
 
     //---Envois OSC Encodeur----
-    /*int changementEncodeur = myEncoder.getEncoderChange();
+    int changementEncodeur = myEncoder.getEncoderChange();
     int etatBouton = myEncoder.getButtonState();
 
     //Megane 2
     monOsc.sendInt("/angle_encod2_visuel", changementEncodeur);
     monOsc.sendInt("/bouton_encod2_visuel", etatBouton);
-    myEncoder.update();*/
+    myEncoder.update();
 
     //---Envois OSC TOF---
 
     // Radhouane 2
     monOsc.sendInt("/tof_visuel", mesure);
-  }
+  };
 }
 
 /*

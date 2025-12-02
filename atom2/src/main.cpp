@@ -75,6 +75,12 @@ void loop()
     myEncoder.setLEDColorLeft(0, 0, 0);
     myEncoder.setLEDColorRight(0, 0, 0);
   }
+
+  if (etatBouton == 0)
+  {
+    myEncoder.setLEDColorLeft(0, 0, 255);
+    myEncoder.setLEDColorRight(0, 0, 255);
+  }
 }
 
 /*
