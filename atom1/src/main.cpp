@@ -17,8 +17,8 @@ unsigned long monChronoDepart;
 
 M5_PbHub myPbHub;
 CRGB atomPixel;
-M5_Encoder myEncoder;
-VL53L0X myTOF;
+//M5_Encoder myEncoder;
+//VL53L0X myTOF;
 
 void setup()
 {
@@ -26,8 +26,8 @@ void setup()
   Serial.begin(115200);
   myPbHub.begin();
   Wire.begin();
-  myTOF.init();
-  myEncoder.begin();
+  //myTOF.init();
+  //myEncoder.begin();
   pinMode(MA_BROCHE_BOUTON, INPUT);
   FastLED.addLeds<WS2812, MA_BROCHE_BOUTON, GRB>(&atomPixel, 1);
   myPbHub.setPixelCount(CANAL_KEY_UNIT_BOUTON, 1);
@@ -60,10 +60,10 @@ void loop()
 
   // analog et digital read n'on pas besoin d'être ralenti, sauf les envois osc
   // lecture des unit connecté au arduino
-  int lectureAngleY = myPbHub.analogRead(CANAL_KEY_UNIT_ANGLE_Y);
-  int lectureAngleX = myPbHub.analogRead(CANAL_KEY_UNIT_ANGLE_X);
+  //int lectureAngleY = myPbHub.analogRead(CANAL_KEY_UNIT_ANGLE_Y);
+  //int lectureAngleX = myPbHub.analogRead(CANAL_KEY_UNIT_ANGLE_X);
   int lectureAngleVolume = myPbHub.analogRead( CANAL_KEY_UNIT_ANGLE_VOLUME );
-  int maLectureKey = myPbHub.digitalRead(CANAL_KEY_UNIT_BOUTON);
+  //int maLectureKey = myPbHub.digitalRead(CANAL_KEY_UNIT_BOUTON);
   
   monOsc.onOscMessageReceived(maReceptionMessageOsc);
   if (millis() - monChronoDepart >= 20)
@@ -72,26 +72,26 @@ void loop()
 
 
     // Amira 1 et 2
-    monOsc.sendInt("/angle_y", lectureAngleY);
-    monOsc.sendInt("/angle_x", lectureAngleX);
+    //monOsc.sendInt("/angle_y", lectureAngleY);
+    //monOsc.sendInt("/angle_x", lectureAngleX);
     // Megane 1
     monOsc.sendInt("/angle_volume", lectureAngleVolume);
     // Radhouane 1
-    monOsc.sendInt("/bouton", maLectureKey);
+    //monOsc.sendInt("/bouton", maLectureKey);
 
     //---Envois OSC Encodeur----
-    int changementEncodeur = myEncoder.getEncoderChange();
-    int etatBouton = myEncoder.getButtonState();
+    //int changementEncodeur = myEncoder.getEncoderChange();
+    //int etatBouton = myEncoder.getButtonState();
 
     //Megane 2
-   monOsc.sendInt("/angle_encod2_visuel", changementEncodeur);
-    monOsc.sendInt("/bouton_encod2_visuel", etatBouton);
-   myEncoder.update();
+   //monOsc.sendInt("/angle_encod2_visuel", changementEncodeur);
+    //monOsc.sendInt("/bouton_encod2_visuel", etatBouton);
+   //myEncoder.update();
 
     //---Envois OSC TOF---
-    int mesure = myTOF.readRangeSingleMillimeters();
+    //int mesure = myTOF.readRangeSingleMillimeters();
     // Radhouane 2
-    monOsc.sendInt("/tof_visuel", mesure);
+    //monOsc.sendInt("/tof_visuel", mesure);
   };
 }
 
